@@ -1,0 +1,74 @@
+<dashboard>
+  <label>Microsoft Security</label>
+  <row>
+    <panel>
+      <html>
+          Use <a href="https://splunkbase.splunk.com/app/5351/" target="_blank">Cyences App</a> for full Microsoft Office 365 Security Insights.
+        </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Current Score(In Percentage)</title>
+      <single>
+        <search>
+          <query>`microsoft_graph_security` | head 1 | eval percentage = (currentScore/maxScore)*100 | fields percentage</query>
+          <earliest>-7d@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="unit">%</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Current Score</title>
+      <single>
+        <search>
+          <query>`microsoft_graph_security` | head 1 | eval percentage = currentScore."/".maxScore | fields percentage </query>
+          <earliest>-7d@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="useThousandSeparators">1</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>History: Secure Score</title>
+      <chart>
+        <search>
+          <query>`microsoft_graph_security`| eval percentage = (currentScore/maxScore)*100 | timechart latest(percentage) as percentage  | streamstats last(percentage) as percentage</query>
+          <earliest>-30d@d</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.chart">line</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Basis of Security Score</title>
+      <table>
+        <search>
+          <query>`microsoft_graph_security`
+| head 1
+| spath output=controlScores path=controlScores{}  | fields controlScores
+| mvexpand controlScores
+| spath input=controlScores | table controlCategory controlName controlState State scoreInPercentage count total lastSynced IsEnforced IsEnforced IsApplicable on implementationStatus description | sort  scoreInPercentage, + controlCategory</query>
+          <earliest>-7d@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</dashboard>
