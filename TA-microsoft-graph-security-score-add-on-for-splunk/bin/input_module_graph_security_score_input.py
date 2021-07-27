@@ -14,6 +14,7 @@ CLIENT_ID = 'client_id'
 CLIENT_SECRET = 'client_secret'
 LOCK_FILE = 'not_first.lock'
 ADDON_NAME = 'TA-microsoft-graph-security-score-add-on-for-splunk'
+LOCK_FILE_PATH = splunk_lib_util.make_splunkhome_path(["etc", "apps", ADDON_NAME, "bin", LOCK_FILE])
 
 
 def validate_input(helper, definition):
@@ -48,15 +49,6 @@ def get_app_version(helper):
         app_version = entity.get('version')
     return app_version
 
-def check_lock_file(helper):
-
-    lock_path = splunk_lib_util.make_splunkhome_path(["etc", "apps", ADDON_NAME,"bin",LOCK_FILE])
-    if(os.path.exists(lock_path)):
-        return True
-    else:
-        with open(lock_path, 'w') as fp:
-            pass
-        return False
         
 def get_epoch_time(data):
     utc_time = datetime.strptime(data, "%Y-%m-%dT%H:%M:%SZ")
@@ -68,20 +60,19 @@ def write_events(helper,ew,data):
     event = helper.new_event(source=helper.get_input_type(), index=helper.get_output_index(), sourcetype=helper.get_sourcetype(), data=json.dumps(data),time=get_epoch_time(data.get("createdDateTime")))
     ew.write_event(event)
 
-def check_lock_file(helper,date=None):
 
+def check_lock_file(date=None):
     try:
-        lock_path = splunk_lib_util.make_splunkhome_path(["etc", "apps", ADDON_NAME,"bin",LOCK_FILE])
         if date==None:
-            if(os.path.exists(lock_path)):
-                f=open(lock_path, "r")
+            if(os.path.exists(LOCK_FILE_PATH)):
+                f=open(LOCK_FILE_PATH, "r")
                 if f.mode == 'r':
                     date =f.read()
                     return date
             else:
                 return "False"
         else:
-            with open(lock_path, 'w') as fp:
+            with open(LOCK_FILE_PATH, 'w') as fp:
                 fp.write(date)
 
     except Exception as e:
@@ -90,7 +81,6 @@ def check_lock_file(helper,date=None):
 
 def collect_events(helper, ew):
     try:
-
         opt_azure_ad_tenant_id = helper.get_arg('azure_ad_tenant_id')
         opt_application_id = helper.get_arg('application_id')
         stanza_name = helper.get_input_stanza_names()
@@ -110,21 +100,21 @@ def collect_events(helper, ew):
         helper.log_debug("got response")
         if "error" in response:
             helper.log_info("Make sure your app with id {} has the Microsoft Graph \"SecurityEvents.Read.All\" permission and your tenant admin has given your application admin consent".format(opt_application_id))
-            raise ValueError("Error occured : " + json.dumps(response, indent=4))
+            raise ValueError("Error occurred : " + json.dumps(response, indent=4))
 
         else:
             helper.log_debug("in else condition")
             helper.log_debug(log_level)
             if(log_level!="DEBUG"):
                 helper.log_debug("else -> not debug mode")
-                checkpoint = check_lock_file(helper)
+                checkpoint = check_lock_file()
                 if checkpoint != "False":
                     last_date = checkpoint
                     latest_date = ""
                     for data in response.get('value'):
                         if latest_date=="":
                             latest_date = data.get("id").split("_")[1]
-                            check_lock_file(helper,latest_date)
+                            check_lock_file(latest_date)
                         if latest_date!="" and data.get("id").split("_")[1]==latest_date and latest_date!=last_date:
                             write_events(helper,ew,data)
 
@@ -132,7 +122,7 @@ def collect_events(helper, ew):
                     first_event = 0
                     for data in response.get('value'):
                         if first_event == 0:
-                            check_lock_file(helper,data.get("id").split("_")[1])
+                            check_lock_file(data.get("id").split("_")[1])
                             first_event = 1
                         write_events(helper,ew,data)
             else:

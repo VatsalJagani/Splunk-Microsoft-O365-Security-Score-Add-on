@@ -1,2 +1,2 @@
 [logging]
-loglevel = 
+loglevel = <string> DEBUG|INFO|WARNING|ERROR|CRITICAL

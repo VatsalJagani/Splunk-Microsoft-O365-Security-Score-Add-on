@@ -1,5 +1,5 @@
 <dashboard>
-  <label>Microsoft Security</label>
+  <label>Microsoft Security Score</label>
   <row>
     <panel>
       <html>
@@ -26,7 +26,7 @@
       <title>Current Score</title>
       <single>
         <search>
-          <query>`microsoft_graph_security` | head 1 | eval percentage = currentScore."/".maxScore | fields percentage </query>
+          <query>`microsoft_graph_security` | head 1 | eval score = currentScore."/".maxScore | fields score</query>
           <earliest>-7d@h</earliest>
           <latest>now</latest>
         </search>
