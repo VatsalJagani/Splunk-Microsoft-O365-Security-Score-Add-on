@@ -1,21 +1,20 @@
 # Microsoft Graph Security Score Add-on for Splunk
 
 ### Download from Splunkbase
-#TODO
-https://splunkbase.splunk.com/app/5418/
+TODO
 
 
 OVERVIEW
 --------
-The Microsoft Graph Security Score Add-on for Splunk is a Splunk App that allows users to collect data from Microsoft Security Graph API. It consists of python scripts to collect the data alongside configuration pages in UI to configure the data collection.
+The Microsoft Graph Security Score Add-on for Splunk is a Splunk App that allows users to collect Azure Security Score from Microsoft Security Graph API. It consists of python scripts to collect the data alongside configuration pages in UI to configure the account information.
 
 
 * Author - CrossRealms International Inc.
 * Version - 1.0.0
-* Build - 1
+* Build - 2
 * Creates Index - False
 * Compatible with:
-   * Splunk Enterprise version: 8.1, 8.0
+   * Splunk Enterprise version: 8.2, 8.1, 8.0
    * OS: Platform Independent
    * Browser: Google Chrome, Mozilla Firefox, Safari
 
@@ -26,10 +25,12 @@ TOPOLOGY AND SETTING UP SPLUNK ENVIRONMENT
 This app can be set up in two ways: 
   1. Standalone Mode: 
      * Install the `Microsoft Graph Security Score Add-on for Splunk`.
-  2. Distributed Mode: 
-     * Install the `Microsoft Graph Security Score Add-on for Splunk` on the search head. The Add-on configuration is not required on the search head.
-     * Install the `Microsoft Graph Security Score Add-on for Splunk` on the heavy forwarder. Configure the Add-on to collect the required information from the Microsoft Graph API on the heavy forwarder.
-     * The Add-on do not support universal forwarder as it requires python modular inputs to collect the data from Microsoft Graph API.
+  2. Distributed Mode:
+     * The Add-on can be installed on search head but it is not required. The Add-on contains a dashboard to show Microsoft Graph Security Score.
+        * The Add-on configuration is not required on search head.
+     * Install the `Microsoft Graph Security Score Add-on for Splunk` on the heavy forwarder.
+        * Configure the Add-on to collect the required information from the Microsoft Graph API on the heavy forwarder.
+        * The Add-on do not support universal forwarder as it requires python modular inputs to collect the data from Microsoft Graph API.
      * The Add-on do not require on the Indexer.
 
 
@@ -40,7 +41,7 @@ DEPENDENCIES
 
 INSTALLATION
 ------------------------------------------------------------
-The Add-on needs to be installed on the Search Head and heavy forwarder.  
+The Add-on needs to be installed on the Search Head and heavy forwarder.
 
 * From the Splunk Web home screen, click the gear icon next to Apps. 
 * Click on `Browse more apps`.
@@ -51,8 +52,8 @@ The Add-on needs to be installed on the Search Head and heavy forwarder.
 DATA COLLECTION & CONFIGURATION
 ------------------------------------------------------------
 ### Configuration Required on Azure###
-* Configure Tenant(Directory) ID, Application(Client) ID, Client Secret in Aure
-* Make Sure this Application has "Microsoft Graph" Permisssion.
+* Configure Tenant(Directory) ID, Application(Client) ID, Client Secret in Azure.
+* Make Sure this Application has "Microsoft Graph" Permission.
 * Reference - https://www.inkoop.io/blog/how-to-get-azure-api-credentials/
 
 
@@ -64,7 +65,7 @@ DATA COLLECTION & CONFIGURATION
 | Parameter | Description |
 | --- | --- |
 | Name | An unique name for the Input. |
-| Interval | Interval in seconds, at which the Add-on should collect latest data from Graph API. Ideal value is between 3600 (1 hour) to 14400 (4 hour). |
+| Interval | Interval in seconds, at which the Add-on should collect the latest data from Graph API. Ideal value is between 3600 (1 hour) to 14400 (4 hour). |
 | Index | Select/Type the index name in which Graph API data will be stored in Splunk.  |
 | Azure AD Tenant ID | Tenant(Directory) ID received from Azure  |
 | Application Id | Application(Client) ID received from Azure  |
