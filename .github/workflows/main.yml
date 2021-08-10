@@ -40,16 +40,16 @@ jobs:
       - name: "Generate Add-on Build"
         run: |
           cd repodir
-          find TA-microsoft-graph-security-score-addon-for-splunk -type f -exec chmod 644 '{}' \;
-          find TA-microsoft-graph-security-score-addon-for-splunk -type d -exec chmod 755 '{}' \;
-          tar -czf TA-microsoft-graph-security-score-addon-for-splunk.tgz TA-microsoft-graph-security-score-addon-for-splunk
+          find TA-microsoft-graph-security-score -type f -exec chmod 644 '{}' \;
+          find TA-microsoft-graph-security-score -type d -exec chmod 755 '{}' \;
+          tar -czf TA-microsoft-graph-security-score.tgz TA-microsoft-graph-security-score
           cd ..
           
       - uses: actions/upload-artifact@v2
         with:
           name: "build"
           path: |
-            repodir/TA-microsoft-graph-security-score-addon-for-splunk.tgz
+            repodir/TA-microsoft-graph-security-score.tgz
       
       - name: "Python Installation"
         uses: actions/setup-python@v2
@@ -68,11 +68,11 @@ jobs:
       - name: "Running App-Inspect"
         run: |
           mkdir test_results || true
-          splunk-appinspect inspect --mode test --data-format junitxml --output-file test_results/ta-appinspect-mode-test.xml repodir/TA-microsoft-graph-security-score-addon-for-splunk.tgz
+          splunk-appinspect inspect --mode test --data-format junitxml --output-file test_results/ta-appinspect-mode-test.xml repodir/TA-microsoft-graph-security-score.tgz
       
       - name: "Running Cloud-Inspect"
         run: |
-          splunk-appinspect inspect --mode precert --included-tags cloud --data-format junitxml --output-file test_results/ta-appinspect-mode-cloud.xml repodir/TA-microsoft-graph-security-score-addon-for-splunk.tgz
+          splunk-appinspect inspect --mode precert --included-tags cloud --data-format junitxml --output-file test_results/ta-appinspect-mode-cloud.xml repodir/TA-microsoft-graph-security-score.tgz
       
       - uses: actions/upload-artifact@v2
         with:
