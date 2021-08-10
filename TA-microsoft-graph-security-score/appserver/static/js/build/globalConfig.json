@@ -1,7 +1,7 @@
 {
     "meta": {
         "name": "TA-microsoft-graph-security-score",
-        "displayName": "Microsoft Graph Security Score AddOn",
+        "displayName": "Microsoft Graph Security Score Add-on",
         "version": "1.0.0",
         "apiVersion": "3.0.0",
         "restRoot": "TA_microsoft_graph_security_score",

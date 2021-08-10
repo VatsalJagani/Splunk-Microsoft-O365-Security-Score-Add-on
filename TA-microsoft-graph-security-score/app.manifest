@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "info": {
-    "title": "Microsoft Graph Security Score AddOn",
+    "title": "Microsoft Graph Security Score Add-on",
     "id": {
       "group": null,
       "name": "TA-microsoft-graph-security-score",
