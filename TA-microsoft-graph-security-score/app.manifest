@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0.0",
+  "info": {
+    "title": "Microsoft Graph Security Score AddOn",
+    "id": {
+      "group": null,
+      "name": "TA-microsoft-graph-security-score",
+      "version": "1.0.0"
+    },
+    "author": [
+      {
+        "name": "CrossRealms International",
+        "email": null,
+        "company": null
+      }
+    ],
+    "releaseDate": null,
+    "description": "This Add-on pulls secure score from Microsoft Graph Security API.",
+    "classification": {
+      "intendedAudience": null,
+      "categories": [],
+      "developmentStatus": null
+    },
+    "commonInformationModels": null,
+    "license": {
+      "name": null,
+      "text": null,
+      "uri": null
+    },
+    "privacyPolicy": {
+      "name": null,
+      "text": null,
+      "uri": null
+    },
+    "releaseNotes": {
+      "name": null,
+      "text": null,
+      "uri": null
+    }
+  },
+  "dependencies": {
+  },
+  "tasks": [],
+  "inputGroups": {
+  },
+  "incompatibleApps": {
+  },
+  "platformRequirements": {
+    "splunk": {
+      "Enterprise": "*"
+    }
+  }
+}
