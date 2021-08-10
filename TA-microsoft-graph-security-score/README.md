@@ -1,7 +1,7 @@
 # Microsoft Graph Security Score Add-on for Splunk
 
 ### Download from Splunkbase
-TODO
+https://splunkbase.splunk.com/app/5693
 
 
 OVERVIEW
@@ -11,7 +11,7 @@ The Microsoft Graph Security Score Add-on for Splunk is a Splunk App that allows
 
 * Author - CrossRealms International Inc.
 * Version - 1.0.0
-* Build - 2
+* Build - 1
 * Creates Index - False
 * Compatible with:
    * Splunk Enterprise version: 8.2, 8.1, 8.0
