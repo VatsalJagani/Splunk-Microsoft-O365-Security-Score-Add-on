@@ -10,7 +10,7 @@ The Microsoft Graph Security Score Add-on for Splunk allows users to collect the
 
 
 * Author - CrossRealms International Inc.
-* Version - 1.0.0
+* Version - 1.0.1
 * Build - 1
 * Creates Index - False
 * Compatible with:
@@ -86,6 +86,9 @@ UNINSTALL ADD-ON
 
 RELEASE NOTES
 -------------
+Version 1.0.1 (Aug 2021)
+* Changes to make compatible with the latest Splunk AppInspect - Dashboards version changed to 1.1.
+
 Version 1.0.0 (Aug 2021)
 * Created Add-on by UCC Splunk-Python library.
 * Added the configuration pages.
