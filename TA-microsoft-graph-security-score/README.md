@@ -53,8 +53,10 @@ DATA COLLECTION & CONFIGURATION
 ------------------------------------------------------------
 ### Configuration Required on Azure###
 * Configure Tenant(Directory) ID, Application(Client) ID, Client Secret in Azure Active Directory.
-* Add the "Microsoft Graph" Permission to the Application.
-* Reference - https://www.inkoop.io/blog/how-to-get-azure-api-credentials/
+    * Reference - https://www.inkoop.io/blog/how-to-get-azure-api-credentials/
+* Add the below permission to the Application.
+    * Microsoft Graph > Application > SecurityEvents.Read.All & SecurityEvents.ReadWrite.All
+    * Reference - https://docs.microsoft.com/en-us/graph/api/securescore-get?view=graph-rest-1.0&tabs=http
 
 
 ### Configure Data Input ###
@@ -88,6 +90,7 @@ RELEASE NOTES
 -------------
 Version 1.0.1 (Aug 2021)
 * Changes to make compatible with the latest Splunk AppInspect - Dashboards version changed to 1.1.
+
 
 Version 1.0.0 (Aug 2021)
 * Created Add-on by UCC Splunk-Python library.
